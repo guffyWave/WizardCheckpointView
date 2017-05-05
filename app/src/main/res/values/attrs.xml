@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WizardCheckpointView">
+        <attr name="progress" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="checkPointPrimaryColor" format="color" />
+        <attr name="checkPointDisabledColor" format="color" />
+        <attr name="icon_complete_selected" format="integer" /> <!--white icon-->
+        <attr name="icon_complete_unselected" format="integer" /> <!--red colored icon-->
+        <attr name="icon_incomplete_selected" format="integer" /><!--white icon-->
+        <attr name="icon_incomplete_unselected" format="integer" /><!--gray icon-->
+        <attr name="selectedStrokeWidth" format="dimension" /><!--gray icon-->
+        <attr name="unSelectedStrokeWidth" format="dimension" /><!--gray icon-->
+    </declare-styleable>
+
+</resources>

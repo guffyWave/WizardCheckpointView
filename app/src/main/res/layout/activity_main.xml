@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gufran.wizardcheckpointapp.MainActivity">
+
+    <com.gufran.wizardcheckpointapp.WizardCheckpointView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:padding="5dp"
+        app:checkPointDisabledColor="@android:color/darker_gray"
+        app:checkPointPrimaryColor="@color/colorAccent"
+        app:icon_complete_selected="@drawable/music_white"
+        app:icon_complete_unselected="@drawable/music_colored"
+        app:icon_incomplete_selected="@drawable/music_white"
+        app:icon_incomplete_unselected="@drawable/music_gray"
+        app:progress="40"
+        app:selectedStrokeWidth="10dp"
+        app:unSelectedStrokeWidth="10dp" />
+
+</RelativeLayout>
