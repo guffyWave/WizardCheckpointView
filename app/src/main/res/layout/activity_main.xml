@@ -12,7 +12,7 @@
         android:layout_height="70dp"
         android:minHeight="70dp"
         android:minWidth="70dp"
-        android:padding="0dp"
+        android:padding="2dp"
         app:checkPointDisabledColor="@android:color/darker_gray"
         app:checkPointPrimaryColor="@color/colorAccent"
         app:icon_complete_selected="@drawable/music_white"

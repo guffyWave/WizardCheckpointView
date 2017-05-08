@@ -41,8 +41,8 @@ public class WizardCheckpointView extends View {
 
     private Handler progressHandler;
     private Runnable progressRunnable;
-    final private int PROGRESS_STEP = 2;
-    final private int PROGRESS_DELAY = 15;
+    private final int PROGRESS_STEP = 2;
+    private final int PROGRESS_DELAY = 15;
 
     public WizardCheckpointView(Context context) {
         this(context, null);
@@ -90,11 +90,9 @@ public class WizardCheckpointView extends View {
         unfinishedPaint.setAntiAlias(true);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         switch (state) {
             case SELECTED_COMPLETE:
                 drawSelectedComplete(canvas);
@@ -116,24 +114,11 @@ public class WizardCheckpointView extends View {
         invalidate();
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         height = View.resolveSize(getDesiredHeight(), heightMeasureSpec);
         width = View.resolveSize(getDesiredWidth(), widthMeasureSpec);
         setMeasuredDimension(width, height);
-    }
-
-    private void drawSelectedComplete(Canvas canvas) {
-        setProgress(max);
-        unfinishedPaint.setColor(checkPointDisabledColor);
-        unfinishedPaint.setStrokeWidth(selectedStrokeWidth);
-
-        finishedPaint.setColor(checkPointPrimaryColor);
-        finishedPaint.setStrokeWidth(selectedStrokeWidth);
-
-        drawOutline(canvas);
-        drawDrawableAtCenter(canvas, icon_complete_selected, true);
     }
 
     public void startProgress(final int targetedProgressValue) {
@@ -151,6 +136,19 @@ public class WizardCheckpointView extends View {
             }
         };
         progressHandler.post(progressRunnable);
+    }
+
+
+    private void drawSelectedComplete(Canvas canvas) {
+        setProgress(max);
+        unfinishedPaint.setColor(checkPointDisabledColor);
+        unfinishedPaint.setStrokeWidth(selectedStrokeWidth);
+
+        finishedPaint.setColor(checkPointPrimaryColor);
+        finishedPaint.setStrokeWidth(selectedStrokeWidth);
+
+        drawOutline(canvas);
+        drawDrawableAtCenter(canvas, icon_complete_selected, true);
     }
 
     private void drawSelectedInComplete(Canvas canvas) {
@@ -188,7 +186,7 @@ public class WizardCheckpointView extends View {
     }
 
     private void drawOutline(Canvas canvas) {
-        float delta =(float) (0.05 * height);
+        float delta = (float) (0.05 * height);
         finishedOuterRect.set(delta,
                 delta,
                 width - delta,
@@ -257,6 +255,5 @@ public class WizardCheckpointView extends View {
     private int getDesiredWidth() {
         return getWidth() == 0 ? getMinimumWidth() : getWidth();
     }
-
 
 }
