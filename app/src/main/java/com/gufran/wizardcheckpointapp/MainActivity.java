@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick2(View v) {
-        wizardCheckpointView.startProgress(90);
+      //  wizardCheckpointView.startProgress(90);
+        wizardCheckpointView.setState(1);
     }
 }

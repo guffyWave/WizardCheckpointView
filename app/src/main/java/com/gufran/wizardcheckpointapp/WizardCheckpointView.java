@@ -113,6 +113,7 @@ public class WizardCheckpointView extends View {
 
     public void setState(int state) {
         this.state = state;
+        invalidate();
     }
 
 
@@ -187,7 +188,7 @@ public class WizardCheckpointView extends View {
     }
 
     private void drawOutline(Canvas canvas) {
-        float delta = Math.max(selectedStrokeWidth, unSelectedStrokeWidth) + (float) (0.10 * height);
+        float delta =(float) (0.05 * height);
         finishedOuterRect.set(delta,
                 delta,
                 width - delta,
