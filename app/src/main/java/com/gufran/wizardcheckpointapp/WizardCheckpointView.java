@@ -20,10 +20,13 @@ import android.view.View;
 
 public class WizardCheckpointView extends View {
 
+    public final static int UNSELECTED_INCOMPLETE = 0;
+    public final static int UNSELECTED_COMPLETE = 1;
+    public final static int SELECTED_INCOMPLETE = 2;
+    public final static int SELECTED_COMPLETE = 3;
 
     private int checkPointPrimaryColor, checkPointDisabledColor;
-    private SelectionState selectionState;
-    private CompletionState completionState;
+    private int state;
     private Drawable icon_complete_selected, icon_complete_unselected, icon_incomplete_selected, icon_incomplete_unselected;
     private int selectedStrokeWidth, unSelectedStrokeWidth;
     private int height, width;
@@ -58,6 +61,7 @@ public class WizardCheckpointView extends View {
                 .getDrawable(R.styleable.WizardCheckpointView_icon_incomplete_selected);
         icon_incomplete_unselected = typedArray
                 .getDrawable(R.styleable.WizardCheckpointView_icon_incomplete_unselected);
+        state = typedArray.getInteger(R.styleable.WizardCheckpointView_state, 0);
         selectedStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WizardCheckpointView_selectedStrokeWidth, 0);
         unSelectedStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WizardCheckpointView_unSelectedStrokeWidth, 0);
         setMax(typedArray.getInt(R.styleable.WizardCheckpointView_max, 100));
@@ -72,8 +76,6 @@ public class WizardCheckpointView extends View {
         finishedPaint.setStrokeWidth(selectedStrokeWidth);
         finishedPaint.setStyle(Paint.Style.STROKE);
         finishedPaint.setAntiAlias(true);
-        //finishedPaint.setShader(new LinearGradient(width / 2, 0, width / 2, 120, strokeLight, strokeDark, Shader.TileMode.CLAMP));
-
 
         unfinishedPaint = new Paint();
         unfinishedPaint.setColor(checkPointDisabledColor);
@@ -86,48 +88,60 @@ public class WizardCheckpointView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawUnselectedInComplete(canvas);
-        // drawUnselectedComplete(canvas);
 
+        switch (state) {
+            case SELECTED_COMPLETE:
+                drawSelectedComplete(canvas);
+                break;
+            case SELECTED_INCOMPLETE:
+                drawSelectedInComplete(canvas);
+                break;
+            case UNSELECTED_COMPLETE:
+                drawUnselectedComplete(canvas);
+                break;
+            default:
+                drawUnselectedInComplete(canvas);
+                break;
+        }
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        height = View.resolveSize(getDesiredHeight(), heightMeasureSpec);//padding 20
-        width = View.resolveSize(getDesiredWidth(), widthMeasureSpec);//padding 20
+        height = View.resolveSize(getDesiredHeight(), heightMeasureSpec);
+        width = View.resolveSize(getDesiredWidth(), widthMeasureSpec);
         setMeasuredDimension(width, height);
     }
 
-    private int getDesiredHeight() {
-        return getHeight() == 0 ? getMinimumHeight() : getHeight();
+    private void drawSelectedComplete(Canvas canvas) {
+        setProgress(max);
+        unfinishedPaint.setColor(checkPointDisabledColor);
+        unfinishedPaint.setStrokeWidth(selectedStrokeWidth);
+
+        finishedPaint.setColor(checkPointPrimaryColor);
+        finishedPaint.setStrokeWidth(selectedStrokeWidth);
+
+        drawOutline(canvas);
+        drawDrawableAtCenter(canvas, icon_complete_selected, true);
     }
 
-    private int getDesiredWidth() {
-        return getWidth() == 0 ? getMinimumWidth() : getWidth();
-    }
+    private void drawSelectedInComplete(Canvas canvas) {
+        unfinishedPaint.setColor(checkPointDisabledColor);
+        unfinishedPaint.setStrokeWidth(selectedStrokeWidth);
 
-    public void setCompletionProgress(int completionProgress) {
-    }
+        finishedPaint.setColor(checkPointPrimaryColor);
+        finishedPaint.setStrokeWidth(selectedStrokeWidth);
 
-    public void setSelectionState(SelectionState selectionState) {
-        this.selectionState = selectionState;
-    }
-
-
-    private void drawState() {
-
-    }
-
-    private void drawSelectedComplete() {
-
-    }
-
-    private void drawSelectedInComplete() {
-
+        drawOutline(canvas);
+        drawDrawableAtCenter(canvas, icon_incomplete_selected, true);
     }
 
     private void drawUnselectedComplete(Canvas canvas) {
+        setProgress(max);
         unfinishedPaint.setColor(checkPointDisabledColor);
         unfinishedPaint.setStrokeWidth(unSelectedStrokeWidth);
 
@@ -135,11 +149,10 @@ public class WizardCheckpointView extends View {
         finishedPaint.setStrokeWidth(unSelectedStrokeWidth);
 
         drawOutline(canvas);
-        drawDrawableAtCenter(canvas, icon_incomplete_unselected);
+        drawDrawableAtCenter(canvas, icon_complete_unselected, false);
     }
 
     private void drawUnselectedInComplete(Canvas canvas) {
-
         unfinishedPaint.setColor(checkPointDisabledColor);
         unfinishedPaint.setStrokeWidth(unSelectedStrokeWidth);
 
@@ -147,8 +160,7 @@ public class WizardCheckpointView extends View {
         finishedPaint.setStrokeWidth(unSelectedStrokeWidth);
 
         drawOutline(canvas);
-        drawDrawableAtCenter(canvas, icon_incomplete_unselected);
-        //draw the gray icon at enter
+        drawDrawableAtCenter(canvas, icon_incomplete_unselected, false);
     }
 
     private void drawOutline(Canvas canvas) {
@@ -165,7 +177,20 @@ public class WizardCheckpointView extends View {
         canvas.drawArc(unfinishedOuterRect, -90 + getProgressAngle(), 360 - getProgressAngle(), false, unfinishedPaint);
     }
 
-    private void drawDrawableAtCenter(Canvas canvas, Drawable drawable) {
+    private void drawDrawableAtCenter(Canvas canvas, Drawable drawable, boolean coloredBackground) {
+
+        if (coloredBackground) {
+            float bgPadding = 4.3f * selectedStrokeWidth;
+            Paint bgPaint = new Paint();
+            bgPaint.setColor(checkPointPrimaryColor);
+            bgPaint.setStyle(Paint.Style.FILL);
+            bgPaint.setAntiAlias(true);
+
+            int cx = (int) width / 2;
+            int cy = (int) height / 2;
+            canvas.drawCircle(cx, cy, cx - bgPadding, bgPaint);
+        }
+
         int start = (int) width / 2 - (int) drawable.getIntrinsicWidth() / 2 + getPaddingLeft();
         int top = (int) height / 2 - (int) drawable.getIntrinsicHeight() / 2 + getPaddingTop();
         int end = (int) width / 2 + (int) drawable.getIntrinsicWidth() / 2 - getPaddingRight();
@@ -201,22 +226,13 @@ public class WizardCheckpointView extends View {
         }
     }
 
-
-    enum SelectionState {
-        SELECTED(1), UNSELECTED(2);
-        private int value;
-
-        private SelectionState(int value) {
-            this.value = value;
-        }
+    private int getDesiredHeight() {
+        return getHeight() == 0 ? getMinimumHeight() : getHeight();
     }
 
-    enum CompletionState {
-        COMPLETE(3), INCOMPLETE(4);
-        private int value;
-
-        private CompletionState(int value) {
-            this.value = value;
-        }
+    private int getDesiredWidth() {
+        return getWidth() == 0 ? getMinimumWidth() : getWidth();
     }
+
+
 }

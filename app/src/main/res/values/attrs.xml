@@ -11,6 +11,7 @@
         <attr name="icon_incomplete_unselected" format="integer" /><!--gray icon-->
         <attr name="selectedStrokeWidth" format="dimension" /><!--gray icon-->
         <attr name="unSelectedStrokeWidth" format="dimension" /><!--gray icon-->
+        <attr name="state" format="integer" />
     </declare-styleable>
 
 </resources>
