@@ -202,7 +202,7 @@ public class WizardCheckpointView extends View {
     private void drawDrawableAtCenter(Canvas canvas, Drawable drawable, boolean coloredBackground) {
 
         if (coloredBackground) {
-            float bgPadding = 4.3f * selectedStrokeWidth;
+            float bgPadding =(float) (0.15 * height);
             Paint bgPaint = new Paint();
             bgPaint.setColor(checkPointPrimaryColor);
             bgPaint.setStyle(Paint.Style.FILL);
