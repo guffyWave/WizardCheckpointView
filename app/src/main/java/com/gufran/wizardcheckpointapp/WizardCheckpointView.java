@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,6 +38,11 @@ public class WizardCheckpointView extends View {
     private Paint unfinishedPaint;
     private RectF finishedOuterRect = new RectF();
     private RectF unfinishedOuterRect = new RectF();
+
+    private Handler progressHandler;
+    private Runnable progressRunnable;
+    final private int PROGRESS_STEP = 2;
+    final private int PROGRESS_DELAY = 15;
 
     public WizardCheckpointView(Context context) {
         this(context, null);
@@ -127,6 +133,23 @@ public class WizardCheckpointView extends View {
 
         drawOutline(canvas);
         drawDrawableAtCenter(canvas, icon_complete_selected, true);
+    }
+
+    public void startProgress(final int targetedProgressValue) {
+        progressHandler = new Handler();
+        progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (progress >= targetedProgressValue) {
+                    progressHandler.removeCallbacks(progressRunnable);
+                } else {
+                    setProgress(progress);
+                    progress = progress + PROGRESS_STEP;
+                    progressHandler.postDelayed(this, PROGRESS_DELAY);
+                }
+            }
+        };
+        progressHandler.post(progressRunnable);
     }
 
     private void drawSelectedInComplete(Canvas canvas) {
