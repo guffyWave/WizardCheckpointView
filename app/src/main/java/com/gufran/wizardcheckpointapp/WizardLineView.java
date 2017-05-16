@@ -108,7 +108,7 @@ public class WizardLineView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         width = getMeasuredWidth();
         height = getMeasuredHeight();
-        setMeasuredDimension(width, width);
+        setMeasuredDimension(width, height);
     }
 
     public void setProgress(int progress) {
