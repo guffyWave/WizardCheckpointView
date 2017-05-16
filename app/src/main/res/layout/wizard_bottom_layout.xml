@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <com.gufran.wizardcheckpointapp.WizardCheckpointView
+        android:id="@+id/wizardCheckpointView"
+        android:layout_width="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:visibility="visible"
+        app:checkPointDisabledColor="@android:color/darker_gray"
+        app:checkPointPrimaryColor="@color/colorAccent"
+        app:icon_complete_selected="@mipmap/ic_launcher"
+        app:icon_complete_unselected="@drawable/bhk_red"
+        app:icon_incomplete_selected="@mipmap/ic_launcher"
+        app:icon_incomplete_unselected="@mipmap/ic_launcher"
+        app:progress="30"
+        app:selectedStrokeWidth="5dp"
+        app:state="0"
+        app:unSelectedStrokeWidth="2dp" />
+
+    <com.gufran.wizardcheckpointapp.WizardCheckpointView
+        android:layout_width="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:visibility="visible"
+        app:checkPointDisabledColor="@android:color/darker_gray"
+        app:checkPointPrimaryColor="@color/colorAccent"
+        app:icon_complete_selected="@mipmap/ic_launcher"
+        app:icon_complete_unselected="@drawable/bhk_red"
+        app:icon_incomplete_selected="@mipmap/ic_launcher"
+        app:icon_incomplete_unselected="@mipmap/ic_launcher"
+        app:progress="20"
+        app:selectedStrokeWidth="5dp"
+        app:state="1"
+        app:unSelectedStrokeWidth="2dp" />
+
+    <com.gufran.wizardcheckpointapp.WizardCheckpointView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:visibility="visible"
+        app:checkPointDisabledColor="@android:color/darker_gray"
+        app:checkPointPrimaryColor="@color/colorAccent"
+        app:icon_complete_selected="@mipmap/ic_launcher"
+        app:icon_complete_unselected="@drawable/bhk_red"
+        app:icon_incomplete_selected="@mipmap/ic_launcher"
+        app:icon_incomplete_unselected="@mipmap/ic_launcher"
+        app:progress="20"
+        app:selectedStrokeWidth="5dp"
+        app:state="2"
+        app:unSelectedStrokeWidth="2dp" />
+    <com.gufran.wizardcheckpointapp.WizardCheckpointView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:visibility="visible"
+        app:checkPointDisabledColor="@android:color/darker_gray"
+        app:checkPointPrimaryColor="@color/colorAccent"
+        app:icon_complete_selected="@mipmap/ic_launcher"
+        app:icon_complete_unselected="@drawable/bhk_red"
+        app:icon_incomplete_selected="@mipmap/ic_launcher"
+        app:icon_incomplete_unselected="@mipmap/ic_launcher"
+        app:progress="20"
+        app:selectedStrokeWidth="5dp"
+        app:state="3"
+        app:unSelectedStrokeWidth="2dp" />
+
+
+    <com.gufran.wizardcheckpointapp.WizardCheckpointView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:visibility="visible"
+        app:checkPointDisabledColor="@android:color/darker_gray"
+        app:checkPointPrimaryColor="@color/colorAccent"
+        app:icon_complete_selected="@mipmap/ic_launcher"
+        app:icon_complete_unselected="@drawable/bhk_red"
+        app:icon_incomplete_selected="@mipmap/ic_launcher"
+        app:icon_incomplete_unselected="@mipmap/ic_launcher"
+        app:progress="20"
+        app:selectedStrokeWidth="5dp"
+        app:state="3"
+        app:unSelectedStrokeWidth="2dp" />
+
+</LinearLayout>

@@ -14,4 +14,9 @@
         <attr name="state" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="WizardLineView">
+        <attr name="lineProgress" format="integer" />
+        <attr name="progressColor" format="color" />
+        <attr name="trackColor" format="color" />
+    </declare-styleable>
 </resources>

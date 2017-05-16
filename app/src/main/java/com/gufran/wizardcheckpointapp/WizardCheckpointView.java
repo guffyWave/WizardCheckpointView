@@ -116,9 +116,10 @@ public class WizardCheckpointView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        height = View.resolveSize(getDesiredHeight(), heightMeasureSpec);
-        width = View.resolveSize(getDesiredWidth(), widthMeasureSpec);
-        setMeasuredDimension(width, height);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        width = getMeasuredWidth();
+        height = width;
+        setMeasuredDimension(width, width);
     }
 
     public void startProgress(final int targetedProgressValue) {
@@ -202,7 +203,7 @@ public class WizardCheckpointView extends View {
     private void drawDrawableAtCenter(Canvas canvas, Drawable drawable, boolean coloredBackground) {
 
         if (coloredBackground) {
-            float bgPadding =(float) (0.15 * height);
+            float bgPadding = (float) (0.15 * height);
             Paint bgPaint = new Paint();
             bgPaint.setColor(checkPointPrimaryColor);
             bgPaint.setStyle(Paint.Style.FILL);
